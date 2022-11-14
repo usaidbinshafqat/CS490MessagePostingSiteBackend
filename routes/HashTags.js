@@ -1,17 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const { HashTags } = require('../models')
+const { hashtags } = require('../models')
 
-router.get("/", async (req, res) => {
-    const listHashTags = await HashTags.findAll();
-    res.json(listHashTags);
-});
-
-router.post("/", async (req, res) => {
-    const HashTag = req.body
-    await HashTags.create(HashTag);
-    res.json(HashTag)
+router.get('/', async (req, res) => {
+  const listHashTags = await hashtags.findAll()
+  res.json(listHashTags)
 })
 
-module.exports = router;
+router.post('/', async (req, res) => {
+  const HashTag = req.body
+  await hashtags.create(HashTag)
+  res.json(HashTag)
+})
+
+module.exports = router
