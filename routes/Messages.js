@@ -15,7 +15,8 @@ router.get('/byId/:UID', async (req, res) => {
   const UID = req.params.UID
 
   const userMessages = await message.findAll({
-    where: { UID: UID }
+    where: { UID: UID },
+    order: [['createdAt', 'DESC']]
   })
   res.json(userMessages)
 })
@@ -32,7 +33,8 @@ router.get('/bymsgid/:id', async (req, res) => {
   const MessageID = req.params.id
 
   const message = await message.findOne({
-    where: {MessageID: MessageID}
+    where: { MessageID: MessageID },
+    order: [['createdAt', 'DESC']]
   })
   res.json(messages)
 })
@@ -41,7 +43,7 @@ router.post('/', async (req, res) => {
   const Likes = req.body
   const MessageID = req.body
 
-  await message.update({ Likes: Likes}, { where: { MessageID: MessageID}})
+  await message.update({ Likes: Likes }, { where: { MessageID: MessageID } })
   res.json(Likes)
 })
 
@@ -52,7 +54,7 @@ router.put('/likes/:id', verifyToken, async (req, res) => {
 })
 
 router.get('/bylikes', async (req, res) => {
-  const Messages = await message.findAll( {order: [ ['Likes', 'DESC'] ]} )
+  const Messages = await message.findAll({ order: [['Likes', 'DESC']] })
   res.json(Messages)
 })
 
