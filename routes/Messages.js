@@ -28,6 +28,23 @@ router.post('/', verifyToken, async (req, res) => {
   res.json(messageGet)
 })
 
+router.get('/bymsgid/:id', async (req, res) => {
+  const MessageID = req.params.id
+
+  const message = await message.findOne({
+    where: {MessageID: MessageID}
+  })
+  res.json(messages)
+})
+
+router.post('/', async (req, res) => {
+  const Likes = req.body
+  const MessageID = req.body
+
+  await message.update({ Likes: Likes}, { where: { MessageID: MessageID}})
+  res.json(Likes)
+})
+
 router.put('/likes/:id', verifyToken, async (req, res) => {
   const messageID = req.params.MessageID
   await message.increment('Likes', { by: 1, where: { MessageID: messageID } })
