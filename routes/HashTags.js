@@ -10,7 +10,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const HashTag = req.body
-  await hashtags.create(HashTag)
+  [hashtag, created] = await hashtags.findOrCreate({
+    where: {HashTag: HashTag}
+  })
   res.json(HashTag)
 })
 
