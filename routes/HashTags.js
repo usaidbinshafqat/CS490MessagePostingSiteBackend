@@ -8,13 +8,12 @@ router.get('/', async (req, res) => {
   res.json(listHashTags)
 })
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const HashTag = req.body
-  [hashtag, created] = await hashtags.findOrCreate({
-    where: {HashTag: HashTag},
-    defaults: {HashTag: HashTag}
-  })
-  res.json(HashTag)
+  const [hashtag, created] = await hashtags.findOrCreate({
+      where: { HashTag: JSON.stringify(HashTag).slice(12,-2) },
+    });
+  res.json(hashtag.HashTag)
 })
 
 router.get('/byhashtag/:HashTag', async (req, res) => {
