@@ -51,4 +51,9 @@ router.put('/likes/:id', verifyToken, async (req, res) => {
   res.json({ success: true })
 })
 
+router.get('/bylikes', async (req, res) => {
+  const Messages = await message.findAll( {order: [ ['Likes', 'DESC'] ]} )
+  res.json(Messages)
+})
+
 module.exports = router
