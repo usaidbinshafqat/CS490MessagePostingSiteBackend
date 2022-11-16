@@ -14,6 +14,8 @@ const corsOptions = {
   ]
 }
 
+//updating to heroku
+
 require('dotenv').config()
 
 app.use(express.json())
