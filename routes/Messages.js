@@ -39,7 +39,7 @@ router.get('/bymsgid/:id', async (req, res) => {
   res.json(messages)
 })
 
-router.post('/', async (req, res) => {
+router.post('/likes', async (req, res) => {
   const Likes = req.body
   const MessageID = req.body
 
@@ -57,5 +57,11 @@ router.get('/bylikes', async (req, res) => {
   const Messages = await message.findAll({ order: [['Likes', 'DESC']] })
   res.json(Messages)
 })
+
+router.get("/bypost/:Post", async (req, res) => {
+  const Post = req.params.Post;
+  const listMessages = await Message.findOne({ where: { Message: Post } });
+  res.json(listMessages);
+});
 
 module.exports = router

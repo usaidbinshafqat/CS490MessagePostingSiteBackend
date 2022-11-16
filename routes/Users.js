@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const app = express();
 
 const { user } = require('../models')
 const { verifyToken } = require('../middlewares/AuthMiddleware')
@@ -55,6 +56,13 @@ router.get('/isAuth', verifyToken, async (req, res) => {
   userAuth.Username = Username
   res.json(userAuth)
 })
+
+router.get("/isAuthID", verifyToken, async (req, res) => {
+  const user = req.body
+  const UID = req.user.UID;
+  user.UID = UID;
+  res.json(user);
+});
 
 router.post('/', async (req, res) => {
   const {
