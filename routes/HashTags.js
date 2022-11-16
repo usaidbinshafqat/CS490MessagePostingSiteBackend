@@ -4,7 +4,9 @@ const router = express.Router()
 const { hashtags } = require('../models')
 
 router.get('/', async (req, res) => {
-  const listHashTags = await hashtags.findAll()
+  const listHashTags = await hashtags.findAll({
+    order: [['createdAt', 'DESC']]
+  })
   res.json(listHashTags)
 })
 
