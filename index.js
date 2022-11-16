@@ -14,7 +14,7 @@ const corsOptions = {
   ]
 }
 
-//updating to heroku
+//updating to heroku deployment
 
 require('dotenv').config()
 
