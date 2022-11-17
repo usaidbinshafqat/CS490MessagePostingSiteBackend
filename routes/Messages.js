@@ -50,6 +50,11 @@ router.get("/bypost/:Post", async (req, res) => {
   res.json(listMessages);
 });
 
-router.get('/update/:msgid', getUpdateLikes)
+router.post("/likes/:id", function (req, res, next) {
+ const update = message.update(
+    {Likes: req.body.Likes},
+   { where: { MessageID: req.params.id} }  )
+   res.json(update);
+ })
 
 module.exports = router
