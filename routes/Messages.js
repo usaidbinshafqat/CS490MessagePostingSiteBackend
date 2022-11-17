@@ -39,20 +39,6 @@ router.get('/bymsgid/:id', async (req, res) => {
   res.json(messages)
 })
 
-router.post('/likes', async (req, res) => {
-  const Likes = req.body
-  const MessageID = req.body
-
-  await message.update({ Likes: Likes }, { where: { MessageID: MessageID } })
-  res.json(Likes)
-})
-
-router.put('/likes/:id', verifyToken, async (req, res) => {
-  const messageID = req.params.MessageID
-  await message.increment('Likes', { by: 1, where: { MessageID: messageID } })
-  res.json({ success: true })
-})
-
 router.get('/bylikes', async (req, res) => {
   const Messages = await message.findAll({ order: [['Likes', 'DESC']] })
   res.json(Messages)
@@ -60,8 +46,10 @@ router.get('/bylikes', async (req, res) => {
 
 router.get("/bypost/:Post", async (req, res) => {
   const Post = req.params.Post;
-  const listMessages = await Message.findOne({ where: { Message: Post } });
+  const listMessages = await message.findOne({ where: { Message: Post } });
   res.json(listMessages);
 });
+
+router.get('/update/:msgid', getUpdateLikes)
 
 module.exports = router
