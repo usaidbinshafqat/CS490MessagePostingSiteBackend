@@ -17,26 +17,4 @@ router.post('/', verifyToken, async (req, res) => {
   res.json(userfollowingget)
 })
 
-router.post('/addFollower', async (req, res) => {
-  const Following = req.body.Following
-  const UID = req.body.UID
-
-  await userfollowing.findOrCreate({
-    where: {UID: UID, Following: Following}
-  })
-
-  res.json(UID)
-})
-
-router.post('/unfollow', async (req, res) => {
-  const Following = req.body.Following
-  const UID = req.body.UID
-
-  await userfollowing.destroy({
-    where: {UID: UID, Following: Following}
-  })
-
-  res.json(UID)
-})
-
 module.exports = router
